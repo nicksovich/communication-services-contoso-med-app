@@ -1,45 +1,73 @@
-# Azure Communication Services Demo with Contoso Med App
+# Contoso Med App Node.js Backend Service
 
-This is a sample application showing how quickly and easily it is to add the Azure Communication Services to a Telemedicine application using the Azure Communications Javascript SDK and some other Azure services on a react app [Contoso Med App](./contoso-web-app/) with a backend service [ACS Node](./contoso-node-api) built using Node.js and Express.js that helps the client-side application connect to Azure.
+![Backend Service running locally at http://localhost:3001/](../docs/acs-node-service.png) *Backend Service running locally at http://localhost:3001/*
 
-## Application Architecture
-![Application Architecture](./docs/application-architecture.png)
+## Introduction
+This is the backend service for the [Contoso Med App](../contoso-web-app/) built on Node.js. This connects the client-side application with Azure Communication Services, QnA maker and Azure CosmosDB.
 
-## Features
-### Azure Communication Service specific features
-- SMS service on appointment booking.
-- Chat service
-    - Chat between Patient and QnA Bot.
-    - Add doctor to the patient - bot conversation
-    - Chat between Patient and Doctor.
-- Calling between Patient and Doctor.
+### This backend service provides APIs for the following
+### General APIs
+- User authentication
+- Doctor and patient information
+- Appointment booking
+- Appointments information
 
-### General features
-- User authentication.
-- View doctors and book appointments.
-- Chat with QnA bot to book appointment or start a support consultation.
+### Azure Communication Service specific APIs
+- User ID and token generation
+- Chat thread initialization
 
-### Critical sequences
-#### Login
-&nbsp;
-![Login Sequence](./docs/sequence-diagrams/login.drawio.svg)
-&nbsp;
-#### Booking Appointment
-&nbsp;
-![Booking Appointment Sequence](./docs/sequence-diagrams/book-appointment.drawio.svg)
-&nbsp;
-#### Chatting and Calling via Azure Communication Service
-&nbsp;
-![Chat and Call Sequence](./docs/sequence-diagrams/conversation.drawio.svg)
-&nbsp;
-## Continue Reading
-- [Contoso Med Web App](./contoso-web-app/) - To set-up the client-side application
-- [Contoso Med API](./contoso-node-api) - To set-up the backend service
-- [QnA Maker Bridge](./contoso-az-functions) - To set-up a bridge between your QnA bot and Azure Communication Services using Azure Functions
+Starting the backend server requires having 
+[NodeJs](https://nodejs.org/en/) installed.
 
-## Additional Reading
-- [What is Azure Communication Services?](https://docs.microsoft.com/en-us/azure/communication-services/overview#compare-azure-communication-services) - Know more about Azure Communication Services
-- [Azure Communication Service on GitHub](https://github.com/Azure/Communication) - See latest Samples, SDKs, Release Notes, Ask questions or file issues here
-- [React](https://reactjs.org/) - Library for building user interfaces
-- [Node.js](https://nodejs.org/) - Server-side scripting language
-- [Express.js](https://expressjs.com/) - Web application framework for NodeJS
+### Configuration
+Follow the steps below before running the solution
+ 
+Fill configuration information in the `config.json` file
+
+```JSON
+{
+    "mongodbConnection":"<COSMOS_DB_OR_MONGODB_CONNECTION_STRING>",
+    "dbName": "<DATABASE_NAME>",
+    "connectionString": "<AZURE_COMMUNICATION_SERVICES_CONNECTION_STRING>",
+    "jwtPrivateKey": "<JWT_PRIVATE_KEY_FOR_AUTHENTICATION>",
+    "endpoint": "<AZURE_COMMUNICATION_SERVICES_ENDPOINT>",
+    "smsLogicAppEndpoint": "<AZURE_COMMUNICATION_SERVICES_SMS_LOGIC_APP_HTTP_TRIGGER_ENDPOINT>",
+    "qnaMakerEndpoint": "<QNA_MAKER_ENDPOINT_URL>",
+    "qnaMakerEndpointKey": "<QNA_MAKER_ENDPOINT_KEY>"
+}
+
+```
+
+### Initializing new database
+In `app.js`, find following database connection code
+```Javascript
+console.log('connecting to cosmosdb...')
+dbClient.connect()
+  .then(() => {
+    console.log("connected to the database successfully")
+
+    /* uncomment next line to reset database when application
+     * starts. Appointments in db are flushed and regenerated */
+    //dbInitializationService.initializeDB();
+  })
+  .catch((e) => {
+    console.log(e)
+  })
+```
+
+Uncomment `dbInitializationService.initializeDB()` line if you are connecting to a new database to seed the database with mock patients and doctors data.
+
+You can also reset database by going to `https://{hosted_url}/reset` endpoint.
+
+After you have configured everything, run
+
+```
+npm install
+```
+
+and then,
+
+```
+npm run start
+```
+from the [contoso-node-api](./contoso-node-api) directory, this runs the node service on port 3000 at ``` http://localhost:3000 ```
