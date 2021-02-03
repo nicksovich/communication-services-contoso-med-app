@@ -1,45 +1,84 @@
-# Azure Communication Services Demo with Contoso Med App
+# Contoso Med App built using React
 
-This is a sample application showing how quickly and easily it is to add the Azure Communication Services to a Telemedicine application using the Azure Communications Javascript SDK and some other Azure services on a react app [Contoso Med App](./contoso-web-app/) with a backend service [ACS Node](./contoso-node-api) built using Node.js and Express.js that helps the client-side application connect to Azure.
+## Introduction
+This is the front-end application of Contoso Med created using React with QnA bot, ACS chat, SMS and call integration.
 
-## Application Architecture
-![Application Architecture](./docs/application-architecture.png)
+Starting the react app requires two steps. It requires that you have `npm` and 
+`nodejs` installed on your machine and make sure you have `react` and 
+`react-scripts` installed globally. You can download Nodejs from 
+[NodeJs](https://nodejs.org/en/) website and once you have it installing 
+`react` and `react-scripts` will be like below
 
-## Features
-### Azure Communication Service specific features
-- SMS service on appointment booking.
-- Chat service
-    - Chat between Patient and QnA Bot.
-    - Add doctor to the patient - bot conversation
-    - Chat between Patient and Doctor.
-- Calling between Patient and Doctor.
+```
+npm install -g react react-scripts 
+```
+Before starting the react app you need to change the configuration in the ` config.js ` file, the endpoint should point to your API service. If you are running locally then use `http://localhost:3001`. 3001 being the default port on which server runs locally.
 
-### General features
-- User authentication.
-- View doctors and book appointments.
-- Chat with QnA bot to book appointment or start a support consultation.
+After the configuration is done, run
 
-### Critical sequences
-#### Login
-&nbsp;
-![Login Sequence](./docs/sequence-diagrams/login.drawio.svg)
-&nbsp;
-#### Booking Appointment
-&nbsp;
-![Booking Appointment Sequence](./docs/sequence-diagrams/book-appointment.drawio.svg)
-&nbsp;
-#### Chatting and Calling via Azure Communication Service
-&nbsp;
-![Chat and Call Sequence](./docs/sequence-diagrams/conversation.drawio.svg)
-&nbsp;
-## Continue Reading
-- [Contoso Med Web App](./contoso-web-app/) - To set-up the client-side application
-- [Contoso Med API](./contoso-node-api) - To set-up the backend service
-- [QnA Maker Bridge](./contoso-az-functions) - To set-up a bridge between your QnA bot and Azure Communication Services using Azure Functions
+```
+npm install
+```
 
-## Additional Reading
-- [What is Azure Communication Services?](https://docs.microsoft.com/en-us/azure/communication-services/overview#compare-azure-communication-services) - Know more about Azure Communication Services
-- [Azure Communication Service on GitHub](https://github.com/Azure/Communication) - See latest Samples, SDKs, Release Notes, Ask questions or file issues here
-- [React](https://reactjs.org/) - Library for building user interfaces
-- [Node.js](https://nodejs.org/) - Server-side scripting language
-- [Express.js](https://expressjs.com/) - Web application framework for NodeJS
+and then,
+
+```
+npm start
+```
+ from the `contoso-med-app` app directory.
+
+
+## Using the app
+Once the Node service and the react app are all set-up and running you can goto ``` http://localhost:3000 ``` to access the app. This would take you to the login page of the app.
+
+![Login Page](../docs/app-login.png)<br/>*Contoso Med App running locally at http://localhost:3000/*
+
+Here you can login as a patient or a doctor by using the toggle. User credentials can be found in the [init.json](../contoso-node-api/db/init.json) file.
+
+Once you're logged in you will see the dashboard of the patient or doctor.
+
+![Patient Dashboard](../docs/patient-dashboard.png)<br/>
+*Patient dashboard*
+___
+
+![Doctor Dashboard](../docs/doctor-dashboard.png)<br/>
+*Doctor dashboard*
+
+Once logged in as a patient you can communicate with the chat bot using the chat bubble at the bottom-right on the patient dashboard or book an appointment from the list of doctors.
+
+![QnA Bot](../docs/QnA-bot.png)<br/>
+*QnA Bot on patient dashboard*
+___
+
+![Doctor list](../docs/doctor-list.png)<br/>*Doctor list to book appointments*
+___
+
+On clicking ``` Book Consultation ``` you'll be redirected to the ``` Book Appointment ``` page, here you can select a slot for your appointment and on selecting slot your appointment summary is shown on the right there you also have an option to receive SMS confirmation of your booking. On clicking ``` Confirm Appointment ``` a confirmation SMS is sent to the provided phone number.
+
+![Appointment Booking](../docs/appointment-booking-sms.png)<br/>*Appointment booking page with option to receive SMS confirmation of your appointment*
+
+___
+
+Once the appointment is booked you can view all your appointments on the ``` My Bookings ``` page as shown below.
+
+![Bookings Page](../docs/booked-appointments.png)<br/>*Booked appointments page*
+
+You can navigate to ``` Chat dashboard ``` and ``` My Bookings ``` from the side navigation menu. To start a conversation with doctors you have an appointment with navigate to the ``` Chat dashboard ``` or you can view all your bookings from the ``` My Bookings ``` page and click ``` Start Conversation ``` from the appointment list.
+
+![Navigation](../docs/navigation.png)*Side Navigation menu*
+
+___
+
+You can start a conversation by clicking on the patient card on doctor side and vice-versa and also place audio and video calls.
+
+![Patient chat](../docs/patient-chat.png)<br />*Chat on patient side with doctor*
+___
+
+![Doctor Chat](../docs/doctor-chat.png)<br />*Chat on doctor side with patient*
+
+__
+
+![chat-qna](../docs/doctor-support-chat.png)<br />*Support conversation forwarded to doctor by QnA bot*
+
+** Support Conversations are conversations which are passed on by the QnA bot to the doctor. Doctor needs to be logged in and active to receive the support conversation on their dashboard.
+
