@@ -6,6 +6,6 @@ export const constants = {
     KEY_SPOOL_ID: "SPOOL_ID",
     KEY_SPOOL_TOKEN: "SPOOL_TOKEN",
     
-    endpoint: "http://localhost:3001",
-    acsEndpoint: "<ACS_ENDPOINT>"
+    endpoint: "https://contoso-video-call-sample-api.azurewebsites.net/",
+    acsEndpoint: "https://video-call-sample.communication.azure.com/"
 }
