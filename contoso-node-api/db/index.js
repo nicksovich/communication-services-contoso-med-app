@@ -3,10 +3,17 @@ const config = require('../config.json');
 
 let connection = null;
 let url = config.mongodbConnection
+console.log('url: ' + url);
 
 module.exports.connect = () => new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
-        if (err) { reject(err); return; };
+        if (err) { 
+            console.log('Unable to connect to mongodb!');
+            console.log(e);
+            reject(err); 
+            return; 
+        };
+        console.log('Connected to mongodb!');
         resolve(db);        
         connection = db;
     });

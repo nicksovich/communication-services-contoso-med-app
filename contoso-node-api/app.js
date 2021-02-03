@@ -9,11 +9,12 @@ var dbClient = require('./db/index')
 var dbInitializationService = require('./db/dbInitialize')
 
 console.log('connecting to cosmosdb...')
+console.log("blah")
 dbClient.connect()
   .then(() => {
     console.log("connected to the database successfully")
 
-    /* uncomment next line to reset database when application
+     /* uncomment next line to reset database when application
      * starts. Appointments in db are flushed and regenerated */
     dbInitializationService.initializeDB();
   })

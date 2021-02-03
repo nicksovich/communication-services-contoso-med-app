@@ -1,9 +1,9 @@
 {
-    "mongodbConnection":"<COSMOS_DB_OR_MONGODB_CONNECTION_STRING>",
-    "dbName": "<DATABASE_NAME>",
-    "connectionString": "<AZURE_COMMUNICATION_SERVICES_CONNECTION_STRING>",
-    "jwtPrivateKey": "<JWT_PRIVATE_KEY_FOR_AUTHENTICATION>",
-    "endpoint": "<AZURE_COMMUNICATION_SERVICES_ENDPOINT>",
+    "mongodbConnection":"mongodb://888792:kIiRkxBepkYXUwjfG2iGCPHrbUsLaU8oql9aRbT33fqnON8oSGKNy2HQv0ETMK2ZAKfW4yKAgb3YiCfEvnZJlA==@888792.mongo.cosmos.azure.com:10255/?ssl=true&appName=@888792@&retrywrites=false",
+    "dbName": "videocallsample",
+    "connectionString": "endpoint=https://video-call-sample.communication.azure.com/;accesskey=NWV9pziLC6AGxFOm7k2G84njvSCAbY+ikGm00FpwAsMd5t6aU2+Aqm5QWJDKwFbXPMZN5sOywvss5O5Xd8VoNA==",
+    "jwtPrivateKey": "NWV9pziLC6AGxFOm7k2G84njvSCAbY+ikGm00FpwAsMd5t6aU2+Aqm5QWJDKwFbXPMZN5sOywvss5O5Xd8VoNA==",
+    "endpoint": "https://video-call-sample.communication.azure.com/",
     "smsLogicAppEndpoint": "<AZURE_COMMUNICATION_SERVICES_SMS_LOGIC_APP_HTTP_TRIGGER_ENDPOINT>",
     "qnaMakerEndpoint": "<QNA_MAKER_ENDPOINT_URL>",
     "qnaMakerEndpointKey": "<QNA_MAKER_ENDPOINT_KEY>"
